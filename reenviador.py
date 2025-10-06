@@ -1,12 +1,13 @@
 import asyncio
+import os # <-- AÑADE ESTA LÍNEA
 from telegram import Bot
 
-# --- CONFIGURACIÓN: RELLENA TUS DATOS AQUÍ ---
-BOT_TOKEN = "8029031353:AAE87uhAvd6MqkX_1JyiNck1q0hBeINqfj4"
-CANAL_ORIGEN_ID = -1002266680909  # 
-CANAL_DESTINO_ID = -1003169175034 # 
-PALABRA_CLAVE = "LIVE"
-# ------------------------------------------------
+# --- CONFIGURACIÓN: AHORA SE LEE DE VARIABLES DE ENTORNO ---
+BOT_TOKEN = os.environ.get("BOT_TOKEN")
+CANAL_ORIGEN_ID = int(os.environ.get("CANAL_ORIGEN_ID"))
+CANAL_DESTINO_ID = int(os.environ.get("CANAL_DESTINO_ID"))
+PALABRA_CLAVE = os.environ.get("PALABRA_CLAVE", "LIVE") # Usará LIVE si no se especifica
+# -----------------------------------------------------------
 
 # Variable para guardar el ID del último mensaje procesado
 ultimo_mensaje_id = 0
@@ -61,4 +62,5 @@ if __name__ == '__main__':
     try:
         asyncio.run(main())
     except KeyboardInterrupt:
+
         print("\nBot detenido manualmente.")
